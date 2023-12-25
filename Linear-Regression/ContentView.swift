@@ -8,14 +8,27 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    var points: [[Int]] = [[]]//[[0, 0], [1, 1], [2, 1], [1, 0], [2, 2]]
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView{
+            Text("My Models")
+                .tabItem {
+                    Image(systemName: "person.circle.fill")
+                    Text("My AI Models")
+                }
+            Graphing(points: points)
+                .tabItem {
+                    Image(systemName: "plus.circle.fill")
+                    Text("Create New AI Model")
+                }
+            Text("Info")
+                .tabItem {
+                    Image(systemName: "questionmark.square")
+                    Text("How it works")
+                }
         }
-        .padding()
     }
 }
 
