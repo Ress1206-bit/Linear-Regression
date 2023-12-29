@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct Linear_RegressionApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .modelContainer(for: AIModelDataItem.self)
         }
     }
 }
