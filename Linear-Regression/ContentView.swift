@@ -15,15 +15,10 @@ struct ContentView: View {
     
     var body: some View {
         TabView{
-            Text("My Models")
+            HomeView()
                 .tabItem {
                     Image(systemName: "person.circle.fill")
                     Text("My AI Models")
-                }
-            Graphing(points: points)
-                .tabItem {
-                    Image(systemName: "plus.circle.fill")
-                    Text("Create New AI Model")
                 }
             Text("Info")
                 .tabItem {
