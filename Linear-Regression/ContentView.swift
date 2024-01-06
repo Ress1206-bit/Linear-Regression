@@ -15,7 +15,8 @@ struct ContentView: View {
     
     var body: some View {
         TabView{
-            HomeView()
+            //HomeView()
+            Test_Math()
                 .tabItem {
                     Image(systemName: "person.circle.fill")
                     Text("My AI Models")
