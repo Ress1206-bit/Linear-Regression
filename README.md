@@ -26,7 +26,7 @@ First, we define our data points:
 ```swift
 var points: [[Double]] = [[0, 0], [1, 0], [1, 2]]
 ```
-These points are \((0,0)\), \((1,0)\), and \((1,2)\).
+These points are (0,0), (1,0), and (1,2).
 
 ## Constructing Matrix \( A \)
 The `getAMatrix` function constructs the matrix \( A \):
