@@ -20,6 +20,8 @@ Here's the information formatted as a README.txt file:
 
 Here's the information formatted correctly for a README.md file using Markdown:
 
+Certainly! Here's the README.md file with proper Markdown formatting:
+
 
 # Line of Best Fit using QR Factorization and Gram-Schmidt Process
 
@@ -28,10 +30,10 @@ First, we define our data points:
 ```swift
 var points: [[Double]] = [[0, 0], [1, 0], [1, 2]]
 ```
-These points are \((0,0)\), \((1,0)\), and \((1,2)\).
+These points are (0,0), (1,0), and (1,2).
 
-## Constructing Matrix \( A \)
-The `getAMatrix` function constructs the matrix \[ A \]:
+## Constructing Matrix A
+The `getAMatrix` function constructs the matrix A:
 ```swift
 func getAMatrix() -> Matrix {
     var values:[[Double]] = []
@@ -42,14 +44,18 @@ func getAMatrix() -> Matrix {
 }
 ```
 - **Explanation:**
-  - This function creates a matrix \( A \) where each row represents a point's x-coordinate and an additional 1 to account for the intercept \( b \).
-  - For points \((0,0)\), \((1,0)\), and \((1,2)\), the matrix \( A \) is:
-    \[
-    A = \begin{bmatrix} 0 & 1 \\ 1 & 1 \\ 1 & 1 \end{bmatrix}
-    \]
+  - This function creates a matrix A where each row represents a point's x-coordinate and an additional 1 to account for the intercept b.
+  - For points (0,0), (1,0), and (1,2), the matrix A is:
+    ```
+    A = [
+      [0, 1],
+      [1, 1],
+      [1, 1]
+    ]
+    ```
 
-## Constructing Vector \( b \)
-The `getBMatrix` function constructs the vector \( b \):
+## Constructing Vector b
+The `getBMatrix` function constructs the vector b:
 ```swift
 func getBMatrix() -> Matrix {
     var values:[[Double]] = []
@@ -60,11 +66,15 @@ func getBMatrix() -> Matrix {
 }
 ```
 - **Explanation:**
-  - This function creates a vector \( b \) where each element is a point's y-coordinate.
-  - For points \((0,0)\), \((1,0)\), and \((1,2)\), the vector \( b \) is:
-    \[
-    b = \begin{bmatrix} 0 \\ 0 \\ 2 \end{bmatrix}
-    \]
+  - This function creates a vector b where each element is a point's y-coordinate.
+  - For points (0,0), (1,0), and (1,2), the vector b is:
+    ```
+    b = [
+      [0],
+      [0],
+      [2]
+    ]
+    ```
 
 ## Projection Function
 The `proj` function calculates the projection of one vector onto another:
@@ -103,9 +113,9 @@ func proj(ontoVector: Vector, projectVector: Vector) -> Vector {
 ```
 - **Explanation:**
   - This function computes the projection of `projectVector` onto `ontoVector` using the formula:
-    \[
-    \text{proj}_{\mathbf{b}} \mathbf{a} = \frac{\mathbf{a} \cdot \mathbf{b}}{\mathbf{b} \cdot \mathbf{b}} \mathbf{b}
-    \]
+    ```
+    proj_b(a) = (a . b / b . b) * b
+    ```
   - **Check if the Vectors are the Same Size:**
     ```swift
     if ontoVector.getSize() != projectVector.getSize() {
@@ -188,7 +198,7 @@ func orthonormalBasisAsMatrix(_ matrix: Matrix) -> Matrix {
 }
 ```
 - **Explanation:**
-  - This function takes the columns of matrix \( A \) and applies the Gram-Schmidt process to produce an orthonormal basis, stored in matrix \( Q \).
+  - This function takes the columns of matrix A and applies the Gram-Schmidt process to produce an orthonormal basis, stored in matrix Q.
   - Steps involved:
     1. **Convert Matrix Columns into Vectors:**
        ```swift
@@ -230,10 +240,10 @@ func orthonormalBasisAsMatrix(_ matrix: Matrix) -> Matrix {
            newValue.append(rowValue)
        }
        ```
-       - Converts the set of orthonormal vectors back into a matrix \( Q \).
+       - Converts the set of orthonormal vectors back into a matrix Q.
 
-## Compute Matrix \( R \)
-The `getRMatrix` function computes matrix \( R \):
+## Compute Matrix R
+The `getRMatrix` function computes matrix R:
 ```swift
 func getRMatrix() -> Matrix {
     let matrixA = getAMatrix()
@@ -242,20 +252,18 @@ func getRMatrix() -> Matrix {
 }
 ```
 - **Explanation:**
-  - This function calculates \( R \) by multiplying the transpose of the orthonormal matrix \( Q \) with matrix \( A \):
-    \[
-    R = Q^T A
-    \]
+  - This function calculates R by multiplying the transpose of the orthonormal matrix Q with matrix A:
+    ```
+    R = Q^T * A
+    ```
 
 ## Compute the Slope and Intercept
-These functions solve for the slope (\( m \)) and intercept (\( b \)) of the line of best fit:
+These functions solve for the slope (m) and intercept (b) of the line of best fit:
 ```swift
 func getSlope() -> Double {
     var solutionVector:[Double] = []
 
-    let matrixA = get
-
-AMatrix()
+    let matrixA = getAMatrix()
     let matrixB = getBMatrix()
     let matrixQTranspose = transpose(orthonormalBasisAsMatrix(matrixA))
     let matrixRInverse = squareMatrixInverse(getRMatrix())
@@ -267,7 +275,9 @@ AMatrix()
         solutionVector.append(Double(Int(element[0] * 100000))/100000.0)
     }
 
-    return solutionVector[0]
+    return solutionVector
+
+[0]
 }
 
 func getIntercept() -> Double {
@@ -289,25 +299,25 @@ func getIntercept() -> Double {
 }
 ```
 - **Explanation:**
-  - These functions perform the following steps to solve for \( m \) and \( b \):
-    1. **Compute \( Q^T b \):**
-       \[
-       Q^T b = Q^T \times b
-       \]
-    2. **Compute the Inverse of \( R \):**
-       \[
-       R^{-1} = \text{inverse}(R)
-       \]
+  - These functions perform the following steps to solve for m and b:
+    1. **Compute Q^T * b:**
+       ```
+       Q^T * b = Q^T * b
+       ```
+    2. **Compute the Inverse of R:**
+       ```
+       R^{-1} = inverse(R)
+       ```
     3. **Solve for the Solution Matrix:**
-       \[
-       \text{solutionMatrix} = R^{-1} \times (Q^T b)
-       \]
-    4. **Extract the Slope (\( m \)) and Intercept (\( b \)) from the Solution Matrix:**
+       ```
+       solutionMatrix = R^{-1} * (Q^T * b)
+       ```
+    4. **Extract the Slope (m) and Intercept (b) from the Solution Matrix:**
        - The first value in the solution matrix is the slope.
        - The second value in the solution matrix is the intercept.
 
 ## Summary
-- **Construct Matrix \( A \) and Vector \( b \):** These represent the system of equations for the points.
-- **Projection and Gram-Schmidt:** The projection function helps in computing orthogonal vectors. The Gram-Schmidt process orthogonalizes these vectors to form the matrix \( Q \).
-- **Compute \( R \):** By multiplying \( Q^T \) and \( A \), we get \( R \).
-- **Solve for Slope and Intercept:** Finally, by solving the system \( R x = Q^T b \), we find the slope and intercept of the best fit line.
+- **Construct Matrix A and Vector b:** These represent the system of equations for the points.
+- **Projection and Gram-Schmidt:** The projection function helps in computing orthogonal vectors. The Gram-Schmidt process orthogonalizes these vectors to form the matrix Q.
+- **Compute R:** By multiplying Q^T and A, we get R.
+- **Solve for Slope and Intercept:** Finally, by solving the system R * x = Q^T * b, we find the slope and intercept of the best fit line.
