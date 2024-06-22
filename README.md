@@ -13,17 +13,225 @@ The Linear Regression App allows you to input your data points and make predicti
 The core of the app's functionality lies in the `MathCalculator` class, which uses various linear algebra techniques to compute the slope and intercept of the regression line.
 Certainly! Let's redo the explanation with the specified change.
 
+Sure, I'll incorporate the additional steps into the README format for clarity.
+
+### README: Line of Best Fit using QR Factorization and Gram-Schmidt Process
+
+---
+
+## Steps to Find the Line of Best Fit
+
+### 1. Gather the Points
+Start with the points you want to find the line of best fit for. Example points: $`(0,0)`$, $`(1,0)`$, $`(1,2)`$.
+
+### 2. Convert the Equation $`y = mx + b`$  to a System of Linear Equations
+Create matrix $`A`$ and vector $`b`$ from the points.
+
+For the point $`(0,0)`$:
+- Equation: $`0 = m(0) + b(1)`$
+
+For the point $`(1,0)`$:
+- Equation: $`0 = m(1) + b(1)`$
+
+For the point $`(1,2)`$:
+- Equation: $`2 = m(1) + b(1)`$
+
+Matrix $`A`$ is made from the coefficients in front of $`m`$ and $`b`$:
+```math
+A = \begin{bmatrix} 0 & 1 \\ 1 & 1 \\ 1 & 1 \end{bmatrix}
+```
+
+Vector $`b`$ is made from the y-values:
+```math
+b = \begin{bmatrix} 0 \\ 0 \\ 2 \end{bmatrix}
+```
+
+We represent $`[m, b]`$ as vector $`x`$. Thus, the matrix equation is:
+```math
+Ax = b \quad \text{or} \quad \begin{bmatrix} 0 & 1 \\ 1 & 1 \\ 1 & 1 \end{bmatrix} \begin{bmatrix} m \\ b \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \\ 2 \end{bmatrix}
+```
+
+### 3. Objective: Find the Best Fit
+To find the line of best fit, we need to determine the values of vector $`x`$ that make $`A`$ most closely approximate $`b`$. To do this we first need to use QR factorization.
+
+### 4. QR Factorization
+We use QR factorization to convert matrix $`A`$ into two factors, $`Q`$ and $`R`$:
+```math
+A = QR
+```
+
+- **Q** is an orthonormal matrix:
+  - Columns are orthogonal (perpendicular) to each other.
+  - Columns are normalized (unit length).
+  - Example of an orthonormal matrix: This is the identity matrix and is made up of ones on the diagonal. It is also orthonormal. In other words, the columns are both unit vectors and perpendicular to each other.
+```math
+\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}
+```
+  - Property of an orthonormal matrix: $`Q^T = Q^{-1}`$.
+    - Q Transpose = Q Inverse
+        - A transpose of a matrix is basically just flipping it in a certain way that makes it so all the columns become the rows and the rows become the columns.
+    - Don't forget this property of orthonormal matrices we will use it later.
+
+- **R** is an upper triangular matrix:
+  - Non-zero entries are above or on the main diagonal.
+  - Example of an upper triangular matrix:
+```math
+\begin{bmatrix} 1 & 2 \\ 0 & 3 \end{bmatrix}
+```
+### 5. Understanding projection of vectors
+
+Let's project vector $` \mathbf{a} = [1,1] `$ onto vector $` \mathbf{b} = [2,0] `$.
+
+To find the projection, you can visualize it or use the projection equation:
+```math
+\text{proj}_{\mathbf{b}} \mathbf{a} = \frac{\mathbf{a} \cdot \mathbf{b}}{\mathbf{b} \cdot \mathbf{b}} \mathbf{b}
+```
+
+- **Dot Product Calculation**:
+```math
+\mathbf{a} \cdot \mathbf{b} = 1 \cdot 2 + 1 \cdot 0 = 2
+```
+```math
+\mathbf{b} \cdot \mathbf{b} = 2 \cdot 2 + 0 \cdot 0 = 4
+```
+
+- **Projection Calculation**:
+```math
+\text{proj}_{\mathbf{b}} \mathbf{a} = \frac{2}{4} \mathbf{b} = \frac{1}{2} [2,0] = [1,0]
+```
+
+To understand this visually, imagine the two vectors were real rods, and you shined a light directly above them. The shadow of the $`[1,1]`$ rod (vector $`\mathbf{a}`$) on the $`[2,0]`$ rod (vector $`\mathbf{b}`$) would be $`[1,0]`$.
+
+Now, the reason we use projection in the Gram-Schmidt process to get orthogonal vectors is that if you take a vector and subtract its projection onto another vector, you are left with the perpendicular part of the vector. 
+
+For example, with the vectors $`[1,1]`$ and $`[2,0]`$:
+- Subtracting $`[1,1]`$ by its projection $`[1,0]`$ leaves you with $`[0,1]`$.
+- The vectors $`[0,1]`$ and $`[2,0]`$ are perpendicular.
+
+
+### 5. Finding Matrix $`Q`$ using Gram-Schmidt Process
+The Gram-Schmidt process converts the columns of $`A`$ into an orthogonal set of vectors.
+
+- Start with matrix $`A`$:
+```math
+A = \begin{bmatrix} 0 & 1 \\ 1 & 1 \\ 1 & 1 \end{bmatrix}
+```
+  Original vectors from A's columns: $`\mathbf{v}_1 = \begin{bmatrix} 0 \\ 1 \\ 1 \end{bmatrix}`$ and $`\mathbf{v}_2 = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}`$.
+
+- **Finding $`\mathbf{u}_1`$**:
+```math
+\mathbf{u}_1 = \mathbf{v}_1 = \begin{bmatrix} 0 \\ 1 \\ 1 \end{bmatrix}
+```
+
+- **Finding $`\mathbf{u}_2`$**:
+```math
+\mathbf{u}_2 = \mathbf{v}_2 - \text{proj}_{\mathbf{u}_1} \mathbf{v}_2
+```
+  Projection formula:
+```math
+\text{proj}_{\mathbf{u}_1} \mathbf{v}_2 = \frac{\mathbf{v}_2 \cdot \mathbf{u}_1}{\mathbf{u}_1 \cdot \mathbf{u}_1} \mathbf{u}_1
+```
+
+#### Example of Projection:
+- Projecting vector $`\begin{bmatrix} 1 \\ 1 \end{bmatrix}`$ onto vector $`\begin{bmatrix} 2 \\ 0 \end{bmatrix}`$:
+```math
+\text{proj}_{\begin{bmatrix} 2 \\ 0 \end{bmatrix}} \begin{bmatrix} 1 \\ 1 \end{bmatrix} = \frac{\begin{bmatrix} 1 \\ 1 \end{bmatrix} \cdot \begin{bmatrix} 2 \\ 0 \end{bmatrix}}{\begin{bmatrix} 2 \\ 0 \end{bmatrix} \cdot \begin{bmatrix} 2 \\ 0 \end{bmatrix}} \begin{bmatrix} 2 \\ 0 \end{bmatrix}
+```
+
+Now let's apply this to our problem:
+
+- **Compute**:
+```math
+\text{proj}_{\mathbf{u}_1} \mathbf{v}_2 = \begin{bmatrix} 0 \\ 1 \\ 1 \end{bmatrix}
+```
+```math
+\mathbf{u}_2 = \mathbf{v}_2 - \text{proj}_{\mathbf{u}_1} \mathbf{v}_2 = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix} - \begin{bmatrix} 0 \\ 1 \\ 1 \end{bmatrix} = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}
+```
+
+- **Normalize** $`\mathbf{u}_1`$:
+```math
+\mathbf{u}_1 = \begin{bmatrix} 0 \\ \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \end{bmatrix}
+```
+
+- **Matrix $`Q`$**:
+```math
+Q = \begin{bmatrix} 0 & 1 \\ \frac{1}{\sqrt{2}} & 0 \\ \frac{1}{\sqrt{2}} & 0 \end{bmatrix}
+```
+
+### 6. Finding the Upper Triangular Matrix $`R`$
+Since $`A = QR`$:
+1. Multiply both sides by $`Q^{-1}`$:
+```math
+Q^{-1} A = R
+```
+2. Use the property of orthonormal matrices ($`Q^T = Q^{-1}`$):
+```math
+R = Q^T A
+```
+
+Given:
+```math
+Q^T = \begin{bmatrix} 0 & \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\ 1 & 0 & 0 \end{bmatrix}
+```
+```math
+A = \begin{bmatrix} 0 & 1 \\ 1 & 1 \\ 1 & 1 \end{bmatrix}
+```
+
+Compute $`R`$:
+```math
+R = \begin{bmatrix} 0 & \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\ 1 & 0 & 0 \end{bmatrix} \begin{bmatrix} 0 & 1 \\ 1 & 1 \\ 1 & 1 \end{bmatrix} = \begin{bmatrix} \sqrt{2} & \sqrt{2} \\ 0 & 1 \end{bmatrix}
+```
+
+### 7. Solving for $`x = [m, b]`$
+Use the equation $`QRx = b`$:
+1. Multiply both sides by $`Q^T`$:
+```math
+Q^T QRx = Q^T b \implies Rx = Q^T b
+```
+2. Multiply by $`R^{-1}`$:
+```math
+x = R^{-1} Q^T b
+```
+
+Given:
+```math
+Q^T b = \begin{bmatrix} 0 & \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\ 1 & 0 & 0 \end{bmatrix} \begin{bmatrix} 0 \\ 0 \\ 2 \end{bmatrix} = \begin{bmatrix} \sqrt{2} \\ 0 \end{bmatrix}
+```
+
+Find $`R^{-1}`$:
+```math
+R^{-1} = \begin{bmatrix} \frac{1}{\sqrt{2}} & 0 \\ -1 & 1 \end{bmatrix}
+```
+
+Compute $`x`$:
+```math
+x = \begin{bmatrix} \frac{1}{\sqrt{2}} & 0 \\ -1 & 1 \end{
+
+bmatrix} \begin{bmatrix} \sqrt{2} \\ 0 \end{bmatrix} = \begin{bmatrix} 1 \\ 0 \end{bmatrix}
+```
+
+### 8. Final Matrix Multiplication Step
+Find $`x`$:
+```math
+x = R^{-1} Q^T b = \begin{bmatrix} 1 \\ 0 \end{bmatrix}
+```
+
+### 9. Assign the Values of $`x`$ to Slope (m) and Intercept (b)
+```math
+x = [m, b] = [1, 0]
+```
+
+The line of best fit is:
+```math
+y = mx + b \implies y = 1x + 0 \implies y = x
+```
+
+The final answer is $`y = x`$. This is how you use QR factorization to find the line of best fit.
+```
+
 ### Step-by-Step Solution:
 
-Here's the information formatted as a README.txt file:
 
-
-Here's the information formatted correctly for a README.md file using Markdown:
-
-Certainly! Here's the README.md file with proper Markdown formatting:
-
-
-Here's the information formatted correctly for a README.md file using Markdown:
 
 
 # Line of Best Fit using QR Factorization and Gram-Schmidt Process
@@ -33,10 +241,10 @@ First, we define our data points:
 ```swift
 var points: [[Double]] = [[0, 0], [1, 0], [1, 2]]
 ```
-These points are \((0,0)\), \((1,0)\), and \((1,2)\).
+These points are $`(0,0)`$, $`(1,0)`$, and $`(1,2)`$.
 
-## Constructing Matrix \( A \)
-The `getAMatrix` function constructs the matrix \( A \):
+## Constructing Matrix $`A`$
+The `getAMatrix` function constructs the matrix $`A`$:
 ```swift
 func getAMatrix() -> Matrix {
     var values:[[Double]] = []
@@ -47,14 +255,14 @@ func getAMatrix() -> Matrix {
 }
 ```
 - **Explanation:**
-  - This function creates a matrix \( A \) where each row represents a point's x-coordinate and an additional 1 to account for the intercept \( b \).
-  - For points \((0,0)\), \((1,0)\), and \((1,2)\), the matrix \( A \) is:
+  - This function creates a matrix $`A`$ where each row represents a point's x-coordinate and an additional 1 to account for the intercept $`b`$.
+  - For points $`(0,0)`$, $`(1,0)`$, and $`(1,2)`$, the matrix $`A`$ is:
     
     ![equation](https://latex.codecogs.com/svg.image?%5Cinline%20%7B%5Ccolor%7Bwhite%7DA=%5Cbegin%7Bbmatrix%7D0&1%5C%5C1&1%5C%5C1&1%5Cend%7Bbmatrix%7D%7D)
     
 
-## Constructing Vector \( b \)
-The `getBMatrix` function constructs the vector \( b \):
+## Constructing Vector $`b`$
+The `getBMatrix` function constructs the vector $`b`$:
 ```swift
 func getBMatrix() -> Matrix {
     var values:[[Double]] = []
@@ -65,8 +273,8 @@ func getBMatrix() -> Matrix {
 }
 ```
 - **Explanation:**
-  - This function creates a vector \( b \) where each element is a point's y-coordinate.
-  - For points \((0,0)\), \((1,0)\), and \((1,2)\), the vector \( b \) is:
+  - This function creates a vector $`b`$ where each element is a point's y-coordinate.
+  - For points $`(0,0)`$, $`(1,0)`$, and $`(1,2)`$, the vector $`b`$ is:
     ![equation](https://latex.codecogs.com/svg.image?\inline&space;\large&space;\bg{black}{\color{white}b=\begin{bmatrix}0\\0\\2\end{bmatrix}})
 
 ## Projection Function
@@ -189,7 +397,7 @@ func orthonormalBasisAsMatrix(_ matrix: Matrix) -> Matrix {
 }
 ```
 - **Explanation:**
-  - This function takes the columns of matrix \( A \) and applies the Gram-Schmidt process to produce an orthonormal basis, stored in matrix \( Q \).
+  - This function takes the columns of matrix $`A`$ and applies the Gram-Schmidt process to produce an orthonormal basis, stored in matrix $`Q`$.
   - Steps involved:
     1. **Convert Matrix Columns into Vectors:**
        ```swift
@@ -231,10 +439,10 @@ func orthonormalBasisAsMatrix(_ matrix: Matrix) -> Matrix {
            newValue.append(rowValue)
        }
        ```
-       - Converts the set of orthonormal vectors back into a matrix \( Q \).
+       - Converts the set of orthonormal vectors back into a matrix $`Q`$.
 
-## Compute Matrix \( R \)
-The `getRMatrix` function computes matrix \( R \):
+## Compute Matrix $`R`$
+The `getRMatrix` function computes matrix $`R`$:
 ```swift
 func getRMatrix() -> Matrix {
     let matrixA = getAMatrix()
@@ -243,11 +451,11 @@ func getRMatrix() -> Matrix {
 }
 ```
 - **Explanation:**
-  - This function calculates \( R \) by multiplying the transpose of the orthonormal matrix \( Q \) with matrix \( A \):
+  - This function calculates $`R`$ by multiplying the transpose of the orthonormal matrix $`Q`$ with matrix $`A`$:
     ![equation](https://latex.codecogs.com/svg.image?R=Q%5ET%20A%20)
 
 ## Compute the Slope and Intercept
-These functions solve for the slope (\( m \)) and intercept (\( b \)) of the line of best fit:
+These functions solve for the slope ($`m`$) and intercept ($`b`$) of the line of best fit:
 ```swift
 func getSlope() -> Double {
     var solutionVector:[Double] = []
@@ -288,19 +496,19 @@ func getIntercept() -> Double {
 }
 ```
 - **Explanation:**
-  - These functions perform the following steps to solve for \( m \) and \( b \):
-    1. **Compute \( Q^T b \):**
+  - These functions perform the following steps to solve for $`m`$ and $`b`$:
+    1. **Compute $`Q^T b`$:**
        ![equation](https://latex.codecogs.com/svg.image?Q%5ET%20b=Q%5ET%5Ctimes%20b%20)
-    2. **Compute the Inverse of \( R \):**
+    2. **Compute the Inverse of $`R`$:**
        Done with the inverse function created in MathCalculator class
     3. **Solve for the Solution Matrix:**
        ![equation](https://latex.codecogs.com/svg.image?%5Ctext%7Bsolution%20vector%7D=R%5E%7B-1%7D%5Ctimes(Q%5ET%20b))
-    4. **Extract the Slope (\( m \)) and Intercept (\( b \)) from the Solution Matrix:**
+    4. **Extract the Slope ($`m`$) and Intercept ($`b`$) from the Solution Matrix:**
        - The first value in the solution matrix is the slope.
        - The second value in the solution matrix is the intercept.
 
 ## Summary
-- **Construct Matrix \( A \) and Vector \( b \):** These represent the system of equations for the points.
-- **Projection and Gram-Schmidt:** The projection function helps in computing orthogonal vectors. The Gram-Schmidt process orthogonalizes these vectors to form the matrix \( Q \).
-- **Compute \( R \):** By multiplying \( Q^T \) and \( A \), we get \( R \).
-- **Solve for Slope and Intercept:** Finally, by solving the system \( R x = Q^T b \), we find the slope and intercept of the best fit line.
+- **Construct Matrix $`A`$ and Vector $`b`$:** These represent the system of equations for the points.
+- **Projection and Gram-Schmidt:** The projection function helps in computing orthogonal vectors. The Gram-Schmidt process orthogonalizes these vectors to form the matrix $`Q`$.
+- **Compute $`R`$:** By multiplying $`Q^T`$ and $`A`$, we get $`R`$.
+- **Solve for Slope and Intercept:** Finally, by solving the system $`R x = Q^T b`$, we find the slope and intercept of the best fit line.
