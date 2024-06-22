@@ -100,7 +100,8 @@ To find the projection, you can visualize it or use the projection equation:
 \text{proj}_{\mathbf{b}} \mathbf{a} = \frac{2}{4} \mathbf{b} = \frac{1}{2} [2,0] = [1,0]
 ```
 
-To understand this visually, imagine the two vectors were real rods, and you shined a light directly above them. The shadow of the $`[1,1]`$ rod (vector $`\mathbf{a}`$) on the $`[2,0]`$ rod (vector $`\mathbf{b}`$) would be $`[1,0]`$.
+To understand this visually, imagine the two vectors were real rods, and you shined a light directly above them. The shadow of the $`[1,1]`$ blue rod (vector $`\mathbf{a}`$) on the $`[2,0]`$ red rod (vector $`\mathbf{b}`$) would be like $`[1,0]`$ green vector.
+![Diagram of Vectors](images/projection.png)
 
 Now, the reason we use projection in the Gram-Schmidt process to get orthogonal vectors is that if you take a vector and subtract its projection onto another vector, you are left with the perpendicular part of the vector. 
 
