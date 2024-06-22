@@ -18,18 +18,20 @@ Certainly! Let's redo the explanation with the specified change.
 Here's the information formatted as a README.txt file:
 
 
+Here's the information formatted correctly for a README.md file using Markdown:
+
+
 # Line of Best Fit using QR Factorization and Gram-Schmidt Process
 
 ## Data Points
 First, we define our data points:
-
 ```swift
 var points: [[Double]] = [[0, 0], [1, 0], [1, 2]]
 ```
-These points are (0,0), (1,0), and (1,2).
+These points are \((0,0)\), \((1,0)\), and \((1,2)\).
 
 ## Constructing Matrix \( A \)
-The `getAMatrix` function constructs the matrix \( A \):
+The `getAMatrix` function constructs the matrix \[ A \]:
 ```swift
 func getAMatrix() -> Matrix {
     var values:[[Double]] = []
@@ -251,10 +253,10 @@ These functions solve for the slope (\( m \)) and intercept (\( b \)) of the lin
 func getSlope() -> Double {
     var solutionVector:[Double] = []
 
-    let matrixA = getAMatrix()
-   
+    let matrixA = get
 
- let matrixB = getBMatrix()
+AMatrix()
+    let matrixB = getBMatrix()
     let matrixQTranspose = transpose(orthonormalBasisAsMatrix(matrixA))
     let matrixRInverse = squareMatrixInverse(getRMatrix())
 
@@ -309,4 +311,3 @@ func getIntercept() -> Double {
 - **Projection and Gram-Schmidt:** The projection function helps in computing orthogonal vectors. The Gram-Schmidt process orthogonalizes these vectors to form the matrix \( Q \).
 - **Compute \( R \):** By multiplying \( Q^T \) and \( A \), we get \( R \).
 - **Solve for Slope and Intercept:** Finally, by solving the system \( R x = Q^T b \), we find the slope and intercept of the best fit line.
-```
