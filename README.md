@@ -67,7 +67,7 @@ func getBMatrix() -> Matrix {
 - **Explanation:**
   - This function creates a vector \( b \) where each element is a point's y-coordinate.
   - For points \((0,0)\), \((1,0)\), and \((1,2)\), the vector \( b \) is:
-    ![equation](https://latex.codecogs.com/svg.image?b=%5Cbegin%7Bbmatrix%7D0%5C%5C0%5C%5C2%5Cend%7Bbmatrix%7D)
+    ![equation](https://latex.codecogs.com/svg.image?\inline&space;\large&space;\bg{black}{\color{white}b=\begin{bmatrix}0\\0\\2\end{bmatrix}})
 
 ## Projection Function
 The `proj` function calculates the projection of one vector onto another:
