@@ -80,7 +80,7 @@ A = QR
 ```
 ### 5. Understanding projection of vectors
 
-Let's project vector $` \mathbf{a} = [1,1] `$ onto vector $` \mathbf{b} = [2,0] `$.
+We will need to understand how vector projection works in order to continue, so let's project vector $` \mathbf{a} = [1,1] `$ onto vector $` \mathbf{b} = [2,0] `$.
 
 To find the projection, you can visualize it or use the projection equation:
 ```math
@@ -103,15 +103,15 @@ To find the projection, you can visualize it or use the projection equation:
 To understand this visually, imagine the two vectors were real rods, and you shined a light directly above them. The shadow of the $`[1,1]`$ blue rod (vector $`\mathbf{a}`$) on the $`[2,0]`$ red rod (vector $`\mathbf{b}`$) would be like $`[1,0]`$ green vector.
 ![Diagram of Vectors](images/projection.png)
 
-Now, the reason we use projection in the Gram-Schmidt process to get orthogonal vectors is that if you take a vector and subtract its projection onto another vector, you are left with the perpendicular part of the vector. 
+Now, the reason we use projection in the Gram-Schmidt process to get orthogonal vectors is because if you take a vector and subtract its projection onto another vector, you are left with the perpendicular part of the vector. 
 
 For example, with the vectors $`[1,1]`$ and $`[2,0]`$:
 - Subtracting $`[1,1]`$ by its projection $`[1,0]`$ leaves you with $`[0,1]`$.
 - The vectors $`[0,1]`$ and $`[2,0]`$ are perpendicular.
 
 
-### 5. Finding Matrix $`Q`$ using Gram-Schmidt Process
-The Gram-Schmidt process converts the columns of $`A`$ into an orthogonal set of vectors.
+### 6. Finding Matrix $`Q`$ using Gram-Schmidt Process
+The Gram-Schmidt process converts the columns of $`A`$ into an orthogonal set of vectors $`[u_1, u_2]`$.
 
 - Start with matrix $`A`$:
 ```math
@@ -119,47 +119,31 @@ A = \begin{bmatrix} 0 & 1 \\ 1 & 1 \\ 1 & 1 \end{bmatrix}
 ```
   Original vectors from A's columns: $`\mathbf{v}_1 = \begin{bmatrix} 0 \\ 1 \\ 1 \end{bmatrix}`$ and $`\mathbf{v}_2 = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}`$.
 
-- **Finding $`\mathbf{u}_1`$**:
+- **Finding $`\mathbf{u}_1`$**: The first vector just equals the first original vector
 ```math
 \mathbf{u}_1 = \mathbf{v}_1 = \begin{bmatrix} 0 \\ 1 \\ 1 \end{bmatrix}
 ```
 
-- **Finding $`\mathbf{u}_2`$**:
+- **Finding $`\mathbf{u}_2`$**: Now we subtract the projection of $`v_2`$, so we are just left with the perpendicular part.
 ```math
 \mathbf{u}_2 = \mathbf{v}_2 - \text{proj}_{\mathbf{u}_1} \mathbf{v}_2
 ```
-  Projection formula:
-```math
-\text{proj}_{\mathbf{u}_1} \mathbf{v}_2 = \frac{\mathbf{v}_2 \cdot \mathbf{u}_1}{\mathbf{u}_1 \cdot \mathbf{u}_1} \mathbf{u}_1
-```
 
-#### Example of Projection:
-- Projecting vector $`\begin{bmatrix} 1 \\ 1 \end{bmatrix}`$ onto vector $`\begin{bmatrix} 2 \\ 0 \end{bmatrix}`$:
-```math
-\text{proj}_{\begin{bmatrix} 2 \\ 0 \end{bmatrix}} \begin{bmatrix} 1 \\ 1 \end{bmatrix} = \frac{\begin{bmatrix} 1 \\ 1 \end{bmatrix} \cdot \begin{bmatrix} 2 \\ 0 \end{bmatrix}}{\begin{bmatrix} 2 \\ 0 \end{bmatrix} \cdot \begin{bmatrix} 2 \\ 0 \end{bmatrix}} \begin{bmatrix} 2 \\ 0 \end{bmatrix}
-```
-
-Now let's apply this to our problem:
-
-- **Compute**:
-```math
-\text{proj}_{\mathbf{u}_1} \mathbf{v}_2 = \begin{bmatrix} 0 \\ 1 \\ 1 \end{bmatrix}
-```
-```math
-\mathbf{u}_2 = \mathbf{v}_2 - \text{proj}_{\mathbf{u}_1} \mathbf{v}_2 = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix} - \begin{bmatrix} 0 \\ 1 \\ 1 \end{bmatrix} = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}
-```
+Now that we have an orthogonal (perpendicular) set of vectors, we need to normalize them to make their length equal to 1. This will make the vectors both orthogonal and normalized, or orthonormal. Fortunately, $`u_2`$ is already a length of 1, so we just need to normalize $`u_1`$
 
 - **Normalize** $`\mathbf{u}_1`$:
 ```math
 \mathbf{u}_1 = \begin{bmatrix} 0 \\ \frac{1}{\sqrt{2}} \\ \frac{1}{\sqrt{2}} \end{bmatrix}
 ```
 
+Put $`u_1`$ and $`u_2`$ together to make the orthonormal matrix $`Q`$
 - **Matrix $`Q`$**:
 ```math
 Q = \begin{bmatrix} 0 & 1 \\ \frac{1}{\sqrt{2}} & 0 \\ \frac{1}{\sqrt{2}} & 0 \end{bmatrix}
 ```
 
-### 6. Finding the Upper Triangular Matrix $`R`$
+### 7. Finding the Upper Triangular Matrix $`R`$
+This part is much easier once you know Q.
 Since $`A = QR`$:
 1. Multiply both sides by $`Q^{-1}`$:
 ```math
@@ -183,8 +167,12 @@ Compute $`R`$:
 R = \begin{bmatrix} 0 & \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\ 1 & 0 & 0 \end{bmatrix} \begin{bmatrix} 0 & 1 \\ 1 & 1 \\ 1 & 1 \end{bmatrix} = \begin{bmatrix} \sqrt{2} & \sqrt{2} \\ 0 & 1 \end{bmatrix}
 ```
 
-### 7. Solving for $`x = [m, b]`$
-Use the equation $`QRx = b`$:
+### 8. Solving for $`x = [m, b]`$
+So go back to the equation from the beginning $`Ax = b`$. Lets now finally plugin the QR factorization for $`A`$ where $`A = QR`$, which gives us a new equation
+```math
+QRx = b
+```
+#### Simplify this equation:
 1. Multiply both sides by $`Q^T`$:
 ```math
 Q^T QRx = Q^T b \implies Rx = Q^T b
@@ -211,13 +199,14 @@ x = \begin{bmatrix} \frac{1}{\sqrt{2}} & 0 \\ -1 & 1 \end{
 bmatrix} \begin{bmatrix} \sqrt{2} \\ 0 \end{bmatrix} = \begin{bmatrix} 1 \\ 0 \end{bmatrix}
 ```
 
-### 8. Final Matrix Multiplication Step
+
+### 9. Final Matrix Multiplication Step
 Find $`x`$:
 ```math
 x = R^{-1} Q^T b = \begin{bmatrix} 1 \\ 0 \end{bmatrix}
 ```
 
-### 9. Assign the Values of $`x`$ to Slope (m) and Intercept (b)
+### 10. Assign the Values of $`x`$ to Slope (m) and Intercept (b)
 ```math
 x = [m, b] = [1, 0]
 ```
