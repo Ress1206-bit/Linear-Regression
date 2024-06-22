@@ -49,7 +49,7 @@ func getAMatrix() -> Matrix {
 - **Explanation:**
   - This function creates a matrix \( A \) where each row represents a point's x-coordinate and an additional 1 to account for the intercept \( b \).
   - For points \((0,0)\), \((1,0)\), and \((1,2)\), the matrix \( A \) is:
-    ![equation](https://latex.codecogs.com/svg.image?\inline&space;\textcolor{white}{A=\begin{bmatrix}0&1\\1&1\\1&1\end{bmatrix}})
+    ![equation](https://latex.codecogs.com/svg.image?\inline&space;\color{white}{A=\begin{bmatrix}0&1\\1&1\\1&1\end{bmatrix}})
     
 
 ## Constructing Vector \( b \)
