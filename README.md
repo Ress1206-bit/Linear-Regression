@@ -9,17 +9,8 @@ The Linear Regression App allows you to input your data points and make predicti
 3. **Background Customization**: Customize the background of your graph with either a color or an image.
 4. **AI Model Creation**: Create and save your AI models for future predictions.
 
-## Math Calculator
-The core of the app's functionality lies in the `MathCalculator` class, which uses various linear algebra techniques to compute the slope and intercept of the regression line.
-Certainly! Let's redo the explanation with the specified change.
 
-Sure, I'll incorporate the additional steps into the README format for clarity.
-
-### README: Line of Best Fit using QR Factorization and Gram-Schmidt Process
-
----
-
-## Steps to Find the Line of Best Fit
+## How to Find the Line of Best Fit
 
 ### 1. Gather the Points
 Start with the points you want to find the line of best fit for. Example points: $`(0,0)`$, $`(1,0)`$, $`(1,2)`$.
