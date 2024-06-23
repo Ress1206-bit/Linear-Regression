@@ -74,8 +74,8 @@ A = QR
 Understand that you can look at the set of columns of the matrix as a set of vectors, as a vector is really just a single column matrix
 - #### $`Q`$ is an orthonormal matrix:
   - What makes an orthonormal matrix?
-    - The set of columns (vectors) are orthogonal (point in directions perpendicular to each other). Look up pictures of orthogonal vectors if confused.
-    - The set of columns (vectors) are normalized (unit length / length of 1).
+    1. The set of columns (vectors) are orthogonal (point in directions perpendicular to each other). Look up pictures of orthogonal vectors if confused.
+    2. The set of columns (vectors) are normalized (unit length / length of 1).
       - For example, if $`\mathbf{v} = \begin{bmatrix} a \\ b \end{bmatrix}`$, then the length would be equal to $`\sqrt{a^2 + b^2}`$, which must be equal to 1 to be considered normalized. **So to normalize any vector just divide its values by its length.**
 
   - Example of an orthonormal matrix: This is the identity matrix and is made up of ones on the diagonal. It is also orthonormal. In other words, the columns are both unit vectors and perpendicular to each other.
