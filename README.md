@@ -153,7 +153,7 @@ The Gram-Schmidt process converts the columns of $`A`$ into an orthogonal set of
 ```math
 A = \begin{bmatrix} 0 & 1 \\ 1 & 1 \\ 1 & 1 \end{bmatrix}
 ```
-  Original vectors from A's columns: $`\mathbf{v}_1 = \begin{bmatrix} 0 \\ 1 \\ 1 \end{bmatrix}`$ and $`\mathbf{v}_2 = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}`$.
+  Create vectors from A's columns: $`\mathbf{v}_1 = \begin{bmatrix} 0 \\ 1 \\ 1 \end{bmatrix}`$ and $`\mathbf{v}_2 = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}`$.
 
 - **Finding $`\mathbf{u}_1`$**: The first vector just equals the first original vector
 ```math
