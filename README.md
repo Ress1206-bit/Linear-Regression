@@ -61,7 +61,7 @@ A\vec{x} = \vec{b} \quad \text{or} \quad \begin{bmatrix} 0 & 1 \\ 1 & 1 \\ 1 & 1
 ---
 
 ### 3. Objective: Find the Line of Best Fit
-To find the line of best fit, we need to determine the values of vector $`\vec{x}`$ that make $`A`$ most closely approximate $`\vec{b}`$. To do this we first need to use QR factorization.
+To find the line of best fit, we need to determine the values of vector $`\vec{x}`$ that makes $`A`$ most closely approximate to $`\vec{b}`$. To do this we first need to use QR factorization.
 
 ---
 
