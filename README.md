@@ -242,7 +242,7 @@ Next, get $`R^{-1}`$: For more info on how to calculate the inverse of a matrix,
 R^{-1} = \begin{bmatrix} \frac{1}{\sqrt{2}} & 0 \\ -1 & 1 \end{bmatrix}
 ```
 
-Compute $`\vec{x}`$: With equation \vec{x} = R^{-1} Q^T \vec{b}
+Compute $`\vec{x}`$: With equation $`\vec{x} = R^{-1} Q^T \vec{b}`$
 ```math
 \vec{x} = \begin{bmatrix} \frac{1}{\sqrt{2}} & 0 \\ -1 & 1 \end{bmatrix} \begin{bmatrix} \sqrt{2} \\ 0 \end{bmatrix} = \begin{bmatrix} 1 \\ 0 \end{bmatrix}
 ```
