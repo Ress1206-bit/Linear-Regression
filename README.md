@@ -21,7 +21,7 @@ The Linear Regression App allows you to input your data points and make predicti
 ## Math Behind How to Find the Line of Best Fit using QR Factorization
 
 ### 1. Gather the Points
-Start with the points you want to find the line of best fit for. Example points: $`(0,0)`$, $`(1,0)`$, $`(1,2)`$.
+Start with the points you want to find the line of best fit for. Example points: $`(0,0)`$, $`(1,0)`$, $`(1,2)`$. These are the points I will use while explaining.
 
 ---
 
