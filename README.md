@@ -15,31 +15,37 @@ The Linear Regression App allows you to input your data points and make predicti
 ### 1. Gather the Points
 Start with the points you want to find the line of best fit for. Example points: $`(0,0)`$, $`(1,0)`$, $`(1,2)`$.
 
-### 2. Convert the Equation $`y = mx + b`$  to a System of Linear Equations
-Create matrix $`A`$ and vector $`b`$ from the points.
+### 2. Convert the Slope-Intercept Equation to a System of Linear Equations
+Create matrix $`A`$ and vector $`\vec{b}`$ from the points with this equation: where $`m`$ is the slope and $`b`$ is the y-intercept. Don't confuse variable $`b`$ with vector $`\vec{b}`$
+```math
+y = mx + b
+```
+#### Plug in the x and y values from the points into each equation. 
 
-For the point $`(0,0)`$:
-- Equation: $`0 = m(0) + b(1)`$
+Note: written next to b in the slope-intercept equation is (1) just to show a coefficient of 1, as b(1) just equals b, but it helps with visualizing where A comes from.
 
-For the point $`(1,0)`$:
-- Equation: $`0 = m(1) + b(1)`$
+**For the point $`(0,0)`$:**
+- Equation: $`(0) = m(0) + b(1)`$
 
-For the point $`(1,2)`$:
-- Equation: $`2 = m(1) + b(1)`$
+**For the point $`(1,0)`$:**
+- Equation: $`(0) = m(1) + b(1)`$
 
-Matrix $`A`$ is made from the coefficients in front of $`m`$ and $`b`$:
+**For the point $`(1,2)`$:**
+- Equation: $`(2) = m(1) + b(1)`$
+
+Matrix $`A`$ is made from the coefficients next to $`m`$ and $`b`$:
 ```math
 A = \begin{bmatrix} 0 & 1 \\ 1 & 1 \\ 1 & 1 \end{bmatrix}
 ```
 
-Vector $`b`$ is made from the y-values:
+Vector $`\vec{b}`$ is made from the y-values:
 ```math
 b = \begin{bmatrix} 0 \\ 0 \\ 2 \end{bmatrix}
 ```
 
-We represent $`[m, b]`$ as vector $`x`$. Thus, the matrix equation is:
+We represent $`[m, b]`$ as vector $`\vec{x}`$. Thus, the matrix equation is:
 ```math
-Ax = b \quad \text{or} \quad \begin{bmatrix} 0 & 1 \\ 1 & 1 \\ 1 & 1 \end{bmatrix} \begin{bmatrix} m \\ b \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \\ 2 \end{bmatrix}
+A\vec{x} = \vec{b} \quad \text{or} \quad \begin{bmatrix} 0 & 1 \\ 1 & 1 \\ 1 & 1 \end{bmatrix} \begin{bmatrix} m \\ b \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \\ 2 \end{bmatrix}
 ```
 
 ### 3. Objective: Find the Best Fit
@@ -51,9 +57,11 @@ We use QR factorization to convert matrix $`A`$ into two factors, $`Q`$ and $`R`
 A = QR
 ```
 
-- **Q** is an orthonormal matrix:
-  - Columns are orthogonal (perpendicular) to each other.
-  - Columns are normalized (unit length).
+Understand that you can look at the set of columns of the matrix as a set of vectors, as a vector is really just a single column matrix
+- #### $`Q`$ is an orthonormal matrix:
+  - What makes an orthonormal matrix?
+    - The set of columns (vectors) are orthogonal (point in directions perpendicular to each other). Look up pictures of orthogonal vectors if confused.
+    - The set of columns (vectors) are normalized (unit length / length of 1). 
   - Example of an orthonormal matrix: This is the identity matrix and is made up of ones on the diagonal. It is also orthonormal. In other words, the columns are both unit vectors and perpendicular to each other.
 ```math
 \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}
