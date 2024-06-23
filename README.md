@@ -53,7 +53,7 @@ Vector $`\vec{b}`$ is made from the y-values:
 \vec{b} = \begin{bmatrix} 0 \\ 0 \\ 2 \end{bmatrix}
 ```
 
-We represent $`[m, b]`$ as vector $`\vec{x}`$. Thus, the matrix equation is:
+We represent $`\begin{bmatrix} m \\ b \end{bmatrix}`$ as vector $`\vec{x}`$. Thus, the matrix equation is:
 ```math
 A\vec{x} = \vec{b} \quad \text{or} \quad \begin{bmatrix} 0 & 1 \\ 1 & 1 \\ 1 & 1 \end{bmatrix} \begin{bmatrix} m \\ b \end{bmatrix} = \begin{bmatrix} 0 \\ 0 \\ 2 \end{bmatrix}
 ```
