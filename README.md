@@ -50,7 +50,7 @@ A = \begin{bmatrix} 0 & 1 \\ 1 & 1 \\ 1 & 1 \end{bmatrix}
 
 Vector $`\vec{b}`$ is made from the y-values:
 ```math
-b = \begin{bmatrix} 0 \\ 0 \\ 2 \end{bmatrix}
+\vec{b} = \begin{bmatrix} 0 \\ 0 \\ 2 \end{bmatrix}
 ```
 
 We represent $`[m, b]`$ as vector $`\vec{x}`$. Thus, the matrix equation is:
