@@ -232,12 +232,12 @@ Q^T QR\vec{x} = Q^T \vec{b} \implies R\vec{x} = Q^T \vec{b}
 \vec{x} = R^{-1} Q^T \vec{b}
 ```
 
-Given:
+Solve for $`Q^Tb`$:
 ```math
 Q^T \vec{b} = \begin{bmatrix} 0 & \frac{1}{\sqrt{2}} & \frac{1}{\sqrt{2}} \\ 1 & 0 & 0 \end{bmatrix} \begin{bmatrix} 0 \\ 0 \\ 2 \end{bmatrix} = \begin{bmatrix} \sqrt{2} \\ 0 \end{bmatrix}
 ```
 
-Get $`R^{-1}`$: For more info on how to calculate the inverse of a matrix, look up `Finding inverse of a matrix with RREF` (Row Reduced Echelon Form)
+Next, get $`R^{-1}`$: For more info on how to calculate the inverse of a matrix, look up `Finding inverse of a matrix with RREF` (Row Reduced Echelon Form)
 ```math
 R^{-1} = \begin{bmatrix} \frac{1}{\sqrt{2}} & 0 \\ -1 & 1 \end{bmatrix}
 ```
